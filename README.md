@@ -8,11 +8,9 @@
 request header for all client requests should be set to `content-type` should be set to `application/json`
 
 ## TODO's
-- create models for application endpoints
-- create validators for models
-- create ip or other service to prevent users from brute forcing tracks to the database
-- integration with votify frontend angular 2 app
-- make connection with spotify api ?
+- implement strict schema's with mongoose
+- add testing framework
+- create repository class for mongo connection
 - make OTAP build scripts (currently only devmode available)
 
 ## known issues
