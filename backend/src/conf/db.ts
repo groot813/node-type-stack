@@ -29,9 +29,9 @@ mongoServerInstance.start((error, config) => {
 
     });
 
-    const votifyDb = new MovieManagerDbSingleton();
+    const movieDb = new MovieManagerDbSingleton();
 
-    votifyDb.connect().then((votifyDb) => {
+    movieDb.connect().then((votifyDb) => {
         console.log("db connection established");
     });
 
