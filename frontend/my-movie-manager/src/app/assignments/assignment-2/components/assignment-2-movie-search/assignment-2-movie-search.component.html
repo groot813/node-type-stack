@@ -1,0 +1,26 @@
+<mat-form-field class="movie-full-width">
+	<input matInput placeholder="search for a movie..." [formControl]="searchControl">
+</mat-form-field>
+
+<div class="movie-list">
+	<mat-card class="movie-card" *ngFor="let movie of movies">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>{{movie.title}}</mat-card-title>
+			<mat-card-subtitle>movie.year</mat-card-subtitle>
+		</mat-card-header>
+		<img mat-card-image class="image" src="{{movie.poster}}" alt="Photo of a Shiba Inu">
+		<mat-card-content>
+			<p>
+				{{movie.type}}
+			</p>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" class="remove-movie-button"
+					(click)="handleAddToBucketClick(movie)">add to bucket
+			</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
+
+

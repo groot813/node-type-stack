@@ -1,0 +1,84 @@
+<mat-tab-group>
+	<section>
+		<mat-tab label="search">
+			<app-assignment-2-movie-search></app-assignment-2-movie-search>
+		</mat-tab>
+		<mat-tab label="my movies">
+			<app-assignment-2-movies-bucket></app-assignment-2-movies-bucket>
+		</mat-tab>
+	</section>
+</mat-tab-group>
+
+
+<app-common-shared-description-block>
+	<h2>2. Using observables to manage the caching of external data from services</h2>
+
+	<p>
+		Lets make the app a bit more interesting. We now have a movie bucket on which we can add a movie.
+		We shoud start caching our data just in case we do the same request twice.
+	</p>
+
+	<div>
+		<h3>2.1 cleanup</h3>
+		<p>
+			first things first, lets cleanup our subscription.
+			Our formControl.valueChanges subcription is made but will keep running unless we refresh the page <strong>even on a route change</strong>
+			lets clean this up
+		</p>
+		<ul>
+			<li>lets unsubscribe the formSubscription when the Assignment2MovieSearchComponent gets destroyed by angular (ngOnDestroy lifecycle hook)</li>
+		</ul>
+		<strong>example: </strong> this.searchFormSubsctiption.unsubscribe()
+	</div>
+
+	<div>
+		<h3>2.2 using a <strong>BehaviorSubject</strong> to manage request data</h3>
+		<p>
+			lets head over to the Assignment2MoviesService. we a bunch of requests being done. By default angular services return <strong>cold observables</strong>
+			in Most cases where external data is involved you would want a <strong>hot observable </strong>.
+			This is because calling a cold observable will trigger the producer each and every time with the consequence that each component calling the service will trigger a request.
+			Lets change this by making things <strong>hot</strong>
+		</p>
+		<ul>
+			<li>add the operator shareReplay at the end of the searchMovies$ stream</li>
+		</ul>
+		if we were to have another component that would be would also display the searchresults it would only cause the service to do the request once
+	</div>
+
+	<div>
+		<h3>2.3 caching</h3>
+		<p>
+			lets create a cache for the saved movies. currently saving a movie on a search will add it to the database.
+			However the movie will not show up in the movie movies list unless we refresh the browser.
+			lets fix this AND also create a cache to kill two birds with one stone
+		</p>
+		<ul>
+			<li>create a property in the Assignment2MoviesService called savedMoviesCacheSubject = new BehaviorSubject([]);</li>
+			<li>in the saveMovie$ method we will always return this cache so lets remove the return on the get request and return the savedMoviesCacheSubject
+				on the last line of this method</li>
+			<li>
+			<li>now that we have this we should fill the savedMoviesCacheSubject each time the saveMovie$ method is called.
+			Do this by subscribing to the get request within the savedMovies$ method and filling the savedMoviesCacheSubject with the response</li>
+			<li> when a user removes something from the my movies list the data should also be retrieved again so we can see the change in the application,
+				invalidate the cache by calling the savedMovies$ everytime a removeMovie$ or removeAllMovies$ has been executed</li>
+			<li> <strong>>bonus</strong>last but not least. head back over to the movie-search.component controller. Because we not have one Observable that gets updateted as we search
+			we can now remove the sideaffect we created using the property movies by making movies -> movies$ = this.moviesService.searchMovies$()</li>
+			<li> now repeat these steps for the searchMovies$ method</li>
+		</ul>
+	</div>
+
+	<div>
+		<h3>2.4 <strong>bonus</strong> caching every search</h3>
+		<p>
+			We just made a cache the results of the my movies list. But we have another use case. the savedMovies$ method does not take any parameters while the searchMovies$ method does.
+			Lets also create a cache for this use case
+		</p>
+		<ul>
+			<li>create a property in the Assignment2MoviesService called searchMoviesCacheMap = new Map();</li>
+			<li>Now on each searchMovies$ method call we need to fill this map with the searchTerm as a key and a the actual http request with the same <strong>operator</strong>
+				we used ealyer <strong>shareReplay</strong></li>
+		</ul>
+		if all is wel we are now caching our data on each searchTerm request
+	</div>
+
+</app-common-shared-description-block>
