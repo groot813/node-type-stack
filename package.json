@@ -4,8 +4,8 @@
   "description": "complete typescript stack",
   "main": "index.js",
   "scripts": {
-    "installAll": "npm install --prefix backend & npm install --prefix frontend/movie-manager",
-    "dev": "npm run dev --prefix backend & npm start --prefix frontend/movie-manager",
+    "installAll": "cd ./backend & npm install & cd ./frontend/my-movie-manager npm install",
+    "dev": "npm run dev --prefix backend & npm start --prefix frontend/my-movie-manager",
     "run": "ts-node main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
