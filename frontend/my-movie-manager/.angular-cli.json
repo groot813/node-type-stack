@@ -7,7 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "styles": [],
+      "styles": ["styles.css"],
       "assets": [
         "assets",
         "favicon.ico",
