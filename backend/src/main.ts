@@ -7,5 +7,5 @@ let movieManagerApp = express();
 movieManagerApp = movieManagerAppAddConfig(movieManagerApp);
 movieManagerApp = movieManagerAppAddRoutes(movieManagerApp);
 
-movieManagerApp.listen(9000, () => console.log('listening on 3000'));
+movieManagerApp.listen(9000, () => console.log('listening on 9000'));
 

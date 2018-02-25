@@ -1,5 +1,5 @@
 {
-  "name": "my-movie-manager",
+  "name": "my-movie-manager-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,8 @@
     "axios": "^0.18.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "mongodb": "^2.2.26"
+    "mongodb": "^2.2.26",
+    "ts-node": "^5.0.0"
   },
   "devDependencies": {
     "@types/es6-shim": "^0.31.33",
