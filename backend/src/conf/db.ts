@@ -6,34 +6,25 @@ const mongoServerInstance = new MongoInMemory(port); //DEFAULT PORT is 27017
 
 mongoServerInstance.start((error, config) => {
 
-    if (error) {
-        console.error(error);
-    } else {
+	if (error) {
+		console.error(error);
+	} else {
 
-        //callback when server has started successfully
+		//callback when server has started successfully
 
-        console.log("HOST " + config.host);
-        console.log("PORT " + config.port);
+		console.log("HOST " + config.host);
+		console.log("PORT " + config.port);
 
-        const mongouri = mongoServerInstance.getMongouri("myDatabaseName");
+		const mongouri = mongoServerInstance.getMongouri("myDatabaseName");
 
-    }
+	}
 
-    mongoServerInstance.stop((error) => {
+	const movieDb = new MovieManagerDbSingleton();
 
-        if (error) {
-            console.error(error);
-        } else {
-            //callback when server has stopped successfully
-        }
-
-    });
-
-    const movieDb = new MovieManagerDbSingleton();
-
-    movieDb.connect().then((votifyDb) => {
-        console.log("db connection established");
-    });
+	movieDb.connect()
+		.then((votifyDb) => {
+			console.log("db connection established");
+		});
 
 });
 
