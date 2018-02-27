@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from "../../../../../../../../domain/models/Movie.model";
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Assignment2MoviesService} from "../../services/assignment-2-movies.service";
 
