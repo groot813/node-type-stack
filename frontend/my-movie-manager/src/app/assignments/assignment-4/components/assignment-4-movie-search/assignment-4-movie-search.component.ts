@@ -19,7 +19,7 @@ export class Assignment4MovieSearchComponent implements OnInit {
 	public searchControl: FormControl = new FormControl("communication");
 	public movies$: Observable<Array<Movie>> = this.moviesService.searchMovies$();
 	public searchHistory: Array<string> = [];
-	public selectedItemSubject: Subject<string>;
+	public selectedItemSubject: Subject<string> = new Subject();
 	private searchControlSubscription: Subscription = this.createSearchControlSubscription();
 
 	constructor(private moviesService: Assignment4MoviesService) {

@@ -16,4 +16,5 @@ request header for all client requests should be set to `content-type` should be
 ## known issues
 - port 3000 in use
 -- fix by checking which app is using port by "$ sudo lsof -i :3000" & kill by using "$ sudo kill -9 <PID>"
+- in memory mongo not working on windows
 
