@@ -1,31 +1,31 @@
 .common-shared-description-block {
-	position: absolute;
-	overflow-y: scroll;
-	width: 400px;
-	height: 800px;
-	top: 20px;
-	right: 20px;
-	border-radius: 4px;
-	padding: 20px;
-	background: white;
-	opacity: 0.95;
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-	transition: all 0.3s;
-	cursor: pointer;
-	cursor:zoom-in;
-	z-index: 10;
+  position: absolute;
+  overflow-y: scroll;
+  width: 400px;
+  height: 800px;
+  top: 20px;
+  right: 20px;
+  border-radius: 4px;
+  padding: 20px;
+  background: white;
+  opacity: 0.95;
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.75);
+  transition: all 0.3s;
+  cursor: pointer;
+  cursor: zoom-in;
+  z-index: 10;
 
-	&.full {
-		height: 80%;
-		width: 80%;
-		cursor:zoom-out;
-	}
+  &.full {
+    height: 80%;
+    width: 80%;
+    cursor: zoom-out;
+  }
 
-	a {
-		cursor: pointer;
-	}
+  a {
+    cursor: pointer;
+  }
 }
 
 .mat-display-1 {
-	margin-bottom: 0px;
+  margin-bottom: 0px;
 }

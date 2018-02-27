@@ -2,23 +2,27 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/filter';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Movie} from "../../../../../../../../domain/models/Movie.model";
-import {Assignment3MoviesService} from "../../services/assignment-3-movies.service";
+import {Assignment4MoviesService} from "../../services/assignment-4-movies.service";
+import {Subject} from "rxjs/Subject";
 
 @Component({
-	selector: 'app-assignment-3-movie-search',
-	templateUrl: './assignment-3-movie-search.component.html',
-	styleUrls: ['./assignment-3-movie-search.component.scss']
+	selector: 'app-assignment-4-movie-search',
+	templateUrl: './assignment-4-movie-search.component.html',
+	styleUrls: ['./assignment-4-movie-search.component.scss']
 })
-export class Assignment3MovieSearchComponent implements OnInit {
+export class Assignment4MovieSearchComponent implements OnInit {
 
-	public searchControl: FormControl = new FormControl("mission impossible");
+	public searchControl: FormControl = new FormControl("communication");
 	public movies$: Observable<Array<Movie>> = this.moviesService.searchMovies$();
+	public searchHistory: Array<string> = [];
+	public selectedItemSubject: Subject<string>;
 	private searchControlSubscription: Subscription = this.createSearchControlSubscription();
 
-	constructor(private moviesService: Assignment3MoviesService) {
+	constructor(private moviesService: Assignment4MoviesService) {
 	}
 
 	ngOnInit() {
@@ -35,11 +39,11 @@ export class Assignment3MovieSearchComponent implements OnInit {
 
 	private createSearchControlSubscription(): Subscription {
 		return this.searchControl.valueChanges
-			.debounceTime(500)
-			.subscribe(search => {
-				this.moviesService.searchMovies$(search)
-					.subscribe()
-			})
+			.debounceTime(1000)
+			.filter(search => !!search)
+			.do(search => this.moviesService.searchMovies$(search).subscribe())
+			.do(search => this.searchHistory.push(search))
+			.subscribe()
 	}
 
 }

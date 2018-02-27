@@ -12,7 +12,7 @@ import {Movie} from "../../../../../../../domain/models/Movie.model";
 export class Assignment3MoviesService {
 
 	private moviesSearchCache: Map<string, Observable<Array<Movie>>> = new Map();
-	private moviesSearchCacheSubject:  BehaviorSubject<Array<Movie>> = new BehaviorSubject([]);
+	private moviesSearchCacheSubject: BehaviorSubject<Array<Movie>> = new BehaviorSubject([]);
 	private savedMoviesCacheSubject: BehaviorSubject<Array<Movie>> = new BehaviorSubject([]);
 
 	constructor(private http: HttpClient) {

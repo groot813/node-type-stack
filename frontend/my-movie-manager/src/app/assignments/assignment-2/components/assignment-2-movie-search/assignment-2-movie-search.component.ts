@@ -32,7 +32,7 @@ export class Assignment2MovieSearchComponent implements OnInit {
 	}
 
 	private createSearchControlSubscription(): Subscription {
-		 return this.searchControl.valueChanges
+		return this.searchControl.valueChanges
 			.debounceTime(500)
 			.subscribe(search => {
 				this.moviesService.searchMovies$(search)

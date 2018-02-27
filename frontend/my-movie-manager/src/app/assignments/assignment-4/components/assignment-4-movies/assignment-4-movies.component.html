@@ -1,0 +1,32 @@
+<mat-tab-group>
+    <section>
+        <mat-tab label="search">
+            <app-assignment-4-movie-search></app-assignment-4-movie-search>
+        </mat-tab>
+        <mat-tab label="my movies">
+            <app-assignment-4-movies-bucket></app-assignment-4-movies-bucket>
+        </mat-tab>
+    </section>
+</mat-tab-group>
+
+
+<app-common-shared-description-block>
+    <h2>2. Using BehaviorSubjects for component communication</h2>
+
+    <p>
+        Most frameworks provide their own form of component communication. But try and use rxjs for this instead.
+    </p>
+    <p>
+        In assignment-4-movie-search.component.ts we can see that we have a tag-list component which prints out all of our historical searchqueries in a list.
+        We wil still use Angular input directive as it stands right now. But we want to get back the tag item that the user has clicked so we can put it inside the search input.
+    </p>
+
+    <p><strong>4.1: filling the subject</strong> Use the Input selectedItem$ BehaviorSubject in assignment-4/shared/components/tag-list/tag-list.component.ts to put in a new value when the user clicks on a item.
+    for the sake of this workshop the eventHandler has already been made. Fill it in with the logic to provide the selectedItemSubject Subject with data</p>
+
+    <h3><strong>4.2: subsribing to the Subject</strong></h3>
+    <p> we now have a component which takes a "items" and "selectedItem$" as input and updates the selectedItem$ to whatever subscribers ther are.
+        Head over to the assignment-4-movie-search.component.ts and subscribe to the selectedItemSubject wich is also already given to the tag-list component</p>
+
+    <strong>NOTE!: always remember to unsubscribe to open subscriptions to prevent memory leaks</strong>
+</app-common-shared-description-block>

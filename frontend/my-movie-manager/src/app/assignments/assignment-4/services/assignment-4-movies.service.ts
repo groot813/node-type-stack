@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Movie} from '../../../../../../domain/models/Movie.model';
 import 'rxjs/add/operator/shareReplay';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/take';
-
+import 'rxjs/add/operator/takeLast';
+import 'rxjs/add/operator/share';
+import {Movie} from "../../../../../../../domain/models/Movie.model";
 
 @Injectable()
-export class MoviesService {
+export class Assignment4MoviesService {
 
-	private moviesSearchCacheSubject = new BehaviorSubject([]);
+	private moviesSearchCache: Map<string, Observable<Array<Movie>>> = new Map();
+	private moviesSearchCacheSubject: BehaviorSubject<Array<Movie>> = new BehaviorSubject([]);
 	private savedMoviesCacheSubject: BehaviorSubject<Array<Movie>> = new BehaviorSubject([]);
 
 	constructor(private http: HttpClient) {
@@ -28,9 +29,14 @@ export class MoviesService {
 
 	public searchMovies$(searchQuery?: string): Observable<Array<Movie>> {
 		if (searchQuery) {
-			this.http.get<Array<Movie>>("/api/movies/search", {params: {s: searchQuery}})
-				.do(movies => this.moviesSearchCacheSubject.next(movies))
+			if (!this.moviesSearchCache.get(searchQuery)) {
+				this.moviesSearchCache.set(searchQuery, this.http.get<Array<Movie>>("/api/movies/search", {params: {s: searchQuery}}))
+			}
+
+			this.moviesSearchCache.get(searchQuery)
 				.take(1)
+				.do(movies => this.moviesSearchCacheSubject.next(movies))
+				.shareReplay()
 				.subscribe();
 		}
 
@@ -52,12 +58,10 @@ export class MoviesService {
 	public removeMovie$(movie: Movie) {
 		return this.http.delete<any>(`/api/movies/${movie.imdbID}`)
 			.take(1)
-			.do(() => console.log("removed movie"))
 			.do(() => this.invalidateSavedMoviesCache())
 	}
 
 	private invalidateSavedMoviesCache() {
-		console.log("invalidating cahce")
 		this.savedMovies$()
 			.subscribe()
 	}

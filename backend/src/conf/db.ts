@@ -1,6 +1,6 @@
 import {MovieManagerDbSingleton} from "../models/db.singleton.model";
+import * as MongoInMemory from "mongo-in-memory";
 
-const MongoInMemory = require('mongo-in-memory');
 const port = 8006;
 const mongoServerInstance = new MongoInMemory(port); //DEFAULT PORT is 27017
 
@@ -27,4 +27,3 @@ mongoServerInstance.start((error, config) => {
 		});
 
 });
-

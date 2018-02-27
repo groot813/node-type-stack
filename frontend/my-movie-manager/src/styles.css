@@ -1,17 +1,17 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .movie-list {
-	height: 900px;
-	overflow-y: scroll;
-	width: auto;
+    height: 900px;
+    overflow-y: scroll;
+    width: auto;
 }
 
 .movie-card {
-	margin: 10px;
-	width: 300px;
-	float: left;
+    margin: 10px;
+    width: 300px;
+    float: left;
 }
 
 .remove-movie-button {
-	width: 100%;
+    width: 100%;
 }

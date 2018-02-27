@@ -6,7 +6,7 @@ import {MatButtonModule, MatCheckboxModule, MatInputModule, MatListModule, MatTa
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {ReactiveFormsModule} from '@angular/forms';
-import { CommonSharedDescriptionBlockComponent } from './components/common-shared-description-block/common-shared-description-block.component';
+import {CommonSharedDescriptionBlockComponent} from './components/common-shared-description-block/common-shared-description-block.component';
 
 @NgModule({
 	imports: [

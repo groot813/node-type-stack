@@ -1,72 +1,80 @@
 <mat-form-field class="movie-full-width">
-	<input matInput placeholder="search for a movie..." [formControl]="searchControl">
+    <input matInput placeholder="search for a movie..." [formControl]="searchControl">
 </mat-form-field>
 
 <div class="movie-list">
-	<mat-card class="movie-card" *ngFor="let movie of movies">
-		<mat-card-header>
-			<div mat-card-avatar class="example-header-image"></div>
-			<mat-card-title>{{movie.title}}</mat-card-title>
-			<mat-card-subtitle>movie.year</mat-card-subtitle>
-		</mat-card-header>
-		<img mat-card-image class="image" src="{{movie.poster}}" alt="Photo of a Shiba Inu">
-		<mat-card-content>
-			<p>
-				{{movie.type}}
-			</p>
-		</mat-card-content>
-	</mat-card>
+    <mat-card class="movie-card" *ngFor="let movie of movies">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{movie.title}}</mat-card-title>
+            <mat-card-subtitle>movie.year</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image class="image" src="{{movie.poster}}" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <p>
+                {{movie.type}}
+            </p>
+        </mat-card-content>
+    </mat-card>
 </div>
 
 
 <app-common-shared-description-block>
-	<h2>1. playing with user input</h2>
+    <h2>1. playing with user input</h2>
 
-	<p>
-		Angulars reactive forms work with reactive <strong>observables</strong> on default. Lets use this to play with
-		user input.
-	</p>
+    <p>
+        Angulars reactive forms work with reactive <strong>observables</strong> on default. Lets use this to play with
+        user input.
+    </p>
 
-	<div>
-		<h3>1.1 using the reactive forms <strong>observable</strong></h3>
-		<p>
-			in the controller (.ts file) you can see a property called searchControl, this property is binded to the
-			input
-			field you see in the browser.
-		</p>
-		<ul>
-			<li>subscribe to the formControl in the NgOnInit lifecycle hook.</li>
-			<li>log the value within a <strong>observer</strong> in a .do operator.<br><br></li>
-		</ul>
-		<strong>NOTE!</strong> remember to subcribe!
-	</div>
+    <div>
+        <h3>1.1 using the reactive forms <strong>observable</strong></h3>
+        <p>
+            in the controller (.ts file) you can see a property called searchControl, this property is binded to the
+            input
+            field you see in the browser.
+        </p>
+        <ul>
+            <li>subscribe to the formControl in the NgOnInit lifecycle hook.</li>
+            <li>log the value within a <strong>observer</strong> in a .do operator.<br><br></li>
+        </ul>
+        <strong>NOTE!</strong> remember to subcribe!
+    </div>
 
-	<div>
-		<h3>1.2 making our subscription work for us</h3>
-		<p>
-			now that we have a subscription in place we should let it do something of real value for us instead of just loggin.
-			There is a movie service already injected via the constructor. lets use it to do a request each time the user inputs a value.
-			For the sake of this workshop a property that contains values for this service has already been set and binded with the template
-		</p>
-		<ul>
-			<li>call the moviesService.searchMovies$() method on each <strong>stream</strong> of data (user input) and put this data in the movies property of the class
-			</li>
-		</ul>
+    <div>
+        <h3>1.2 making our subscription work for us</h3>
+        <p>
+            now that we have a subscription in place we should let it do something of real value for us instead of just
+            loggin.
+            There is a movie service already injected via the constructor. lets use it to do a request each time the
+            user inputs a value.
+            For the sake of this workshop a property that contains values for this service has already been set and
+            binded with the template
+        </p>
+        <ul>
+            <li>call the moviesService.searchMovies$() method on each <strong>stream</strong> of data (user input) and
+                put this data in the movies property of the class
+            </li>
+        </ul>
 
-		<strong>NOTE!</strong> the moviesService.searchMovies$() also returns a <strong>observable</strong> (well get to that) so remember to also subscribe on the return of this method !
-	</div>
+        <strong>NOTE!</strong> the moviesService.searchMovies$() also returns a <strong>observable</strong> (well get to
+        that) so remember to also subscribe on the return of this method !
+    </div>
 
-	<div>
-		<h3>1.3 using the reactive forms observable</h3>
-		<p>
-			now that we are <strong>reactively</strong> getting values from within our observable <strong>stream</strong>
-			and we can see our result in the browser
-			we can do some nifty stuff with it
-		</p>
-		<ul>
-			<li>make it so that the subscription only gets triggeren when the user pauzes typing for 1 second (you can do this by using the operator <strong>debounceTime</strong>)</li>
-			<li>make it so that the subscription only gets triggered 10 times and then automatically unsubscribes.</li>
-		</ul>
-	</div>
+    <div>
+        <h3>1.3 using the reactive forms observable</h3>
+        <p>
+            now that we are <strong>reactively</strong> getting values from within our observable
+            <strong>stream</strong>
+            and we can see our result in the browser
+            we can do some nifty stuff with it
+        </p>
+        <ul>
+            <li>make it so that the subscription only gets triggeren when the user pauzes typing for 1 second (you can
+                do this by using the operator <strong>debounceTime</strong>)
+            </li>
+            <li>make it so that the subscription only gets triggered 10 times and then automatically unsubscribes.</li>
+        </ul>
+    </div>
 
 </app-common-shared-description-block>

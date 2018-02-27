@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {Assignment3MoviesService} from "../../services/assignment-3-movies.service";
+import {Assignment4MoviesService} from "../../services/assignment-4-movies.service";
 import {Movie} from "../../../../../../../../domain/models/Movie.model";
 
 @Component({
-	selector: 'app-assignment-3-movies-bucket',
-	templateUrl: './assignment-3-movies-bucket.component.html',
-	styleUrls: ['./assignment-3-movies-bucket.component.scss']
+	selector: 'app-assignment-4-movies-bucket',
+	templateUrl: './assignment-4-movies-bucket.component.html',
+	styleUrls: ['./assignment-4-movies-bucket.component.scss']
 })
-export class Assignment3MoviesBucketComponent implements OnInit {
+export class Assignment4MoviesBucketComponent implements OnInit {
 
 	public movies$ = this.moviesService.savedMovies$();
 
-	constructor(private moviesService: Assignment3MoviesService) {
+	constructor(private moviesService: Assignment4MoviesService) {
 	}
 
 	ngOnInit() {

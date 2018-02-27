@@ -14,7 +14,7 @@ export class Assignment1MoviesService {
 
 	public searchMovies$(searchQuery?: string): Observable<Array<Movie>> {
 		return this.http.get<Array<Movie>>("/api/movies/search", {params: {s: searchQuery}})
-				.take(1)
+			.take(1)
 
 	}
 
