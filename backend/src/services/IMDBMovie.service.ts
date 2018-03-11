@@ -2,7 +2,7 @@ import axios, { AxiosPromise } from "axios";
 import {Movie} from "../../../domain/models/Movie.model";
 
 export class IMDBMovieService {
-    public static readonly OMDBAPIKEY = "e36ea2a2";
+    public static readonly OMDBAPIKEY = "blabla";
     public static readonly OMDBAPI = `http://www.omdbapi.com/?apikey=${IMDBMovieService.OMDBAPIKEY}&`;
 
     public static movies(paramString: string): AxiosPromise<IIMDBMoviesResponse> {
