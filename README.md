@@ -11,6 +11,7 @@ request header for all client requests should be set to `content-type` should be
 - implement strict schema's with mongoose
 - add testing framework
 - implement dependency injection
+- implement mongoose schema's
 - make OTAP build scripts (currently only devmode available)
 
 ## known issues
