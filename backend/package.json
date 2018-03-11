@@ -14,7 +14,9 @@
     "axios": "^0.18.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "inversify": "^4.11.1",
     "mongodb": "^2.2.26",
+    "reflect-metadata": "^0.1.12",
     "ts-node": "^5.0.0"
   },
   "devDependencies": {

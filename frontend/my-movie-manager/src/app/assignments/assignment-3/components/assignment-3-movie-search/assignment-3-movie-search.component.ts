@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {Movie} from "../../../../../../../../domain/models/Movie.model";
 import {Assignment3MoviesService} from "../../services/assignment-3-movies.service";
+import {ApplicationStateModel, StateService} from "../../services/state.service";
 
 @Component({
 	selector: 'app-assignment-3-movie-search',
@@ -18,7 +19,8 @@ export class Assignment3MovieSearchComponent implements OnInit {
 	public movies$: Observable<Array<Movie>> = this.moviesService.searchMovies$();
 	private searchControlSubscription: Subscription = this.createSearchControlSubscription();
 
-	constructor(private moviesService: Assignment3MoviesService) {
+	constructor(private moviesService: Assignment3MoviesService,
+				private applicationStateService: StateService) {
 	}
 
 	ngOnInit() {
@@ -29,8 +31,7 @@ export class Assignment3MovieSearchComponent implements OnInit {
 	}
 
 	public handleAddToBucketClick(movie: Movie) {
-		this.moviesService.saveMovie$([movie])
-			.subscribe();
+		this.applicationStateService.addMovie(movie);
 	}
 
 	private createSearchControlSubscription(): Subscription {

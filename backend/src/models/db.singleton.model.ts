@@ -18,7 +18,7 @@ export class MovieManagerDbSingleton {
     }
 
     public connect () {
-        return new Promise<string>((resolve) => {
+        return new Promise<Db>((resolve) => {
             MongoClient.connect(MovieManagerDbSingleton.dbUri, (err, database) => {
                 if (err) return console.log(err);
                 MovieManagerDbSingleton.db = database.db(MovieManagerDbSingleton.dbName);

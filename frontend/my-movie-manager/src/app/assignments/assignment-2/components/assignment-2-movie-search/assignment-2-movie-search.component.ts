@@ -3,6 +3,7 @@ import {Movie} from "../../../../../../../../domain/models/Movie.model";
 import {FormControl} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {Assignment2MoviesService} from "../../services/assignment-2-movies.service";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {Assignment2MoviesService} from "../../services/assignment-2-movies.servi
 export class Assignment2MovieSearchComponent implements OnInit {
 
 	public searchControl: FormControl = new FormControl("");
-	public movies: Array<Movie>;
+	public movies$: Observable<Array<Movie>> = this.moviesService.searchMovies$();
 	private searchControlSubscription: Subscription = this.createSearchControlSubscription();
 
 	constructor(private moviesService: Assignment2MoviesService) {
@@ -33,11 +34,7 @@ export class Assignment2MovieSearchComponent implements OnInit {
 	private createSearchControlSubscription(): Subscription {
 		return this.searchControl.valueChanges
 			.debounceTime(500)
-			.subscribe(search => {
-				this.moviesService.searchMovies$(search)
-					.do(movies => this.movies = movies)
-					.subscribe()
-			})
+			.subscribe(search => this.moviesService.searchMovies$(search))
 	}
 
 }

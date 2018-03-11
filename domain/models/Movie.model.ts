@@ -1,7 +1,6 @@
-import {IMovieJSONResponse} from "../interfaces/MovieJSONResponse.interface";
+import {MovieDatabaseModel} from "../../backend/src/models/MovieDatabaseModel";
 
-export class Movie implements IMovieJSONResponse{
-
+export class Movie{
     public title: string;
     public year: string;
     public imdbID: string;
@@ -16,13 +15,17 @@ export class Movie implements IMovieJSONResponse{
         this.poster = poster;
     }
 
-    public static constructFromMovieResponse(movieResponse: IMovieJSONResponse) {
+    public static constructFromMovieResponse(movieResponse: any) {
         return new Movie(
             movieResponse.title,
             movieResponse.year,
             movieResponse.imdbID,
             movieResponse.type,
             movieResponse.poster)
+    }
+
+    public asDatabaseModel(): MovieDatabaseModel {
+        return new MovieDatabaseModel(this.title, this.year,this.imdbID, this.type, this.poster);
     }
 
     toJSON() {
@@ -34,5 +37,4 @@ export class Movie implements IMovieJSONResponse{
             poster: this.poster
         }
     }
-
 }

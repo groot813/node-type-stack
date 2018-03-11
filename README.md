@@ -10,7 +10,7 @@ request header for all client requests should be set to `content-type` should be
 ## TODO's
 - implement strict schema's with mongoose
 - add testing framework
-- create repository class for mongo connection
+- implement dependency injection
 - make OTAP build scripts (currently only devmode available)
 
 ## known issues

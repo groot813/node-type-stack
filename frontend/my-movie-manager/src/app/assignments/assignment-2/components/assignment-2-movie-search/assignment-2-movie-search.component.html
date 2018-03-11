@@ -3,7 +3,7 @@
 </mat-form-field>
 
 <div class="movie-list">
-    <mat-card class="movie-card" *ngFor="let movie of movies">
+    <mat-card class="movie-card" *ngFor="let movie of movies$ | async">
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>{{movie.title}}</mat-card-title>

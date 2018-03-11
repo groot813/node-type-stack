@@ -1,4 +1,4 @@
-import { IIMDBMovieResponse } from "../repository/IMDBMovie.service";
+import { IIMDBMovieResponse } from "../services/IMDBMovie.service";
 import { Movie } from "../../../domain/models/Movie.model";
 
 export class MovieFactory {

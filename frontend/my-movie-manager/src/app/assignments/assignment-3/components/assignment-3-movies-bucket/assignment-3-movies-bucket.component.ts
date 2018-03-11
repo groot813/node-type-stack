@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Assignment3MoviesService} from "../../services/assignment-3-movies.service";
 import {Movie} from "../../../../../../../../domain/models/Movie.model";
+import {StateService} from "../../services/state.service";
 
 @Component({
 	selector: 'app-assignment-3-movies-bucket',
@@ -9,23 +10,18 @@ import {Movie} from "../../../../../../../../domain/models/Movie.model";
 })
 export class Assignment3MoviesBucketComponent implements OnInit {
 
-	public movies$ = this.moviesService.savedMovies$();
+	public state$ = this.applicationState.state$;
 
-	constructor(private moviesService: Assignment3MoviesService) {
+	constructor(private applicationState: StateService) {
 	}
 
 	ngOnInit() {
 	}
 
 	public handleRemoveAllButtonCLick() {
-		this.moviesService.removeAllMovies$()
-			.subscribe();
 	}
 
 	public handleRemoveFromBucketClick(movie: Movie) {
-		console.log("click")
-		this.moviesService.removeMovie$(movie)
-			.subscribe()
 	}
 
 }

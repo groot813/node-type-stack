@@ -18,15 +18,6 @@ export class Assignment3MoviesService {
 	constructor(private http: HttpClient) {
 	}
 
-	public savedMovies$(): Observable<Array<Movie>> {
-		this.http.get<Array<Movie>>("/api/movies")
-			.do(movies => this.savedMoviesCacheSubject.next(movies))
-			.take(1)
-			.subscribe();
-
-		return this.savedMoviesCacheSubject;
-	}
-
 	public searchMovies$(searchQuery?: string): Observable<Array<Movie>> {
 		if (searchQuery) {
 			if (!this.moviesSearchCache.get(searchQuery)) {
@@ -43,27 +34,5 @@ export class Assignment3MoviesService {
 		return this.moviesSearchCacheSubject;
 	}
 
-	public saveMovie$(movies: Array<Movie>): Observable<any> {
-		return this.http.post<any>("/api/movies", movies)
-			.take(1)
-			.do(() => this.invalidateSavedMoviesCache())
-	}
-
-	public removeAllMovies$() {
-		return this.http.delete<any>("/api/movies")
-			.take(1)
-			.do(() => this.invalidateSavedMoviesCache())
-	}
-
-	public removeMovie$(movie: Movie) {
-		return this.http.delete<any>(`/api/movies/${movie.imdbID}`)
-			.take(1)
-			.do(() => this.invalidateSavedMoviesCache())
-	}
-
-	private invalidateSavedMoviesCache() {
-		this.savedMovies$()
-			.subscribe()
-	}
 
 }

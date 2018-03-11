@@ -5,6 +5,7 @@ import {Assignment3MoviesComponent} from './components/assignment-3-movies/assig
 import {Assignment3MoviesBucketComponent} from './components/assignment-3-movies-bucket/assignment-3-movies-bucket.component';
 import {CommonSharedModule} from "../../common-shared/common-shared.module";
 import {Assignment3MoviesService} from "./services/assignment-3-movies.service";
+import {StateService} from "./services/state.service";
 
 @NgModule({
 	imports: [
@@ -12,7 +13,7 @@ import {Assignment3MoviesService} from "./services/assignment-3-movies.service";
 		CommonSharedModule
 	],
 	exports: [Assignment3MoviesComponent],
-	providers: [Assignment3MoviesService],
+	providers: [Assignment3MoviesService, StateService],
 	declarations: [Assignment3MovieSearchComponent, Assignment3MoviesComponent, Assignment3MoviesBucketComponent]
 })
 export class Assignment3Module {

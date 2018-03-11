@@ -1,2 +1,2 @@
-# welcome to the votify api
+# welcome to the  api
 

@@ -1,56 +1,43 @@
 import * as express from "express";
-import {MovieManagerDbSingleton} from "../models/db.singleton.model";
-import {IMovieJSONResponse} from "../../../domain/interfaces/MovieJSONResponse.interface";
 import {Movie} from "../../../domain/models/Movie.model";
-import {Collection} from "mongodb";
-import { IMDBMovieService } from "../repository/IMDBMovie.service";
+import {IMDBMovieService} from "../services/IMDBMovie.service";
 import * as url from "url";
-import { MovieFactory } from "../factories/Movie.factory";
+import {injectable} from "inversify";
+import {MovieRepository} from "../repository/Movie.repository";
 
+@injectable()
 export class MoviesController {
+	public static movies(req: express.Request, res: express.Response): void {
+		MovieRepository.listAll().then(movies => res.send(movies.map(movie => movie.asApplicationModel())));
+	}
 
-    public static movies(req: express.Request, res: express.Response): void {
-        MoviesController.collection.find({})
-            .toArray((error, movies) => res.send(movies));
-    }
+	public static movie(req: express.Request, res: express.Response): void {
+		MovieRepository.list().then(movies => res.send(movies.map(movie => movie.asApplicationModel())));
+	}
 
-    public static movie(req: express.Request, res: express.Response): void {
-        MoviesController.collection.findOne(req.params.id)
-            .then((movies) => res.send(movies), error => res.send({status: "FAILED"}));
-    }
+	public static saveMovies(req: express.Request, res: express.Response): void {
+		const movies = <Movie[]>req.body;
+		MovieRepository.insertBulk(movies.map(movie => movie.asDatabaseModel()))
+			.then(() => res.send(JSON.stringify({
+				status: "SUCCES",
+				message: "inserted movies"
+			})));
+	}
 
-    public static saveMovies(req: express.Request, res: express.Response): void {
-        const moviesResponse = <Array<IMovieJSONResponse>>req.body;
-        MoviesController.collection.insertMany(
-            moviesResponse.map((movieResponse: IMovieJSONResponse) => Movie.constructFromMovieResponse(movieResponse).toJSON()),
-            (err, result) => {
-                console.log("inserted movie");
-                res.send(JSON.stringify({
-                    status: "SUCCES",
-                    message: "inserted movie"
-                }))
-            });
-    }
+	public static deleteMovies(req: express.Request, res: express.Response): void {
+		MovieRepository.deleteAll()
+			.then(queryResult => res.send({status: 200, message: `removed ${queryResult.deletedCount} movies`}));
+	}
 
-    public static deleteMovies(req: express.Request, res: express.Response): void {
-        MoviesController.collection.deleteMany({})
-            .then(queryResult => res.send({status: 200, message: `removed ${queryResult.deletedCount} movies`}))
-    }
+	public static deleteMovie(req: express.Request, res: express.Response): void {
+		MovieRepository.deleteBulk([req.params.id])
+			.then(queryResult => res.send({status: 200, message: `removed ${queryResult.deletedCount} movies`}))
+	}
 
-    public static deleteMovie(req: express.Request, res: express.Response): void {
-        MoviesController.collection.deleteOne({ "imdbID" : req.params.id})
-            .then(queryResult => res.send({status: 200, message: `removed ${queryResult.deletedCount} movies`}))
-    }
-
-    public static searchIMDBMovies(req: express.Request, res: express.Response): void {
-        const queryString = url.parse(req.url).query;
-        IMDBMovieService.movies(queryString)
-            .then(imdbMovies => res.send(imdbMovies.data.Search.map(movie => MovieFactory.create(movie))))
-    }
-
-    private static get collection(): Collection<Movie> {
-        return MovieManagerDbSingleton.db.collection('movies');
-    }
-
+	public static searchIMDBMovies(req: express.Request, res: express.Response): void {
+		const queryString = url.parse(req.url).query;
+		IMDBMovieService.movies(queryString)
+			.then(imdbMovies => res.send(imdbMovies.data.Search.map(movie => movie.asApplicationModel())))
+	}
 }
 
